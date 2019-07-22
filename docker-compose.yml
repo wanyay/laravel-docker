@@ -1,0 +1,59 @@
+version: '3.3'
+
+networks:
+  backend:
+    driver: ${NETWORKS_DRIVER}
+
+services:
+  nginx:
+    image: petcom/nginx
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+      args:
+        - APP_CODE_PATH=${APP_CODE_PATH_CONTAINER}
+        - APP_GROUP=${APP_GROUP}
+        - APP_GROUP_ID=${APP_GROUP_ID}
+        - APP_USER=${APP_USER}
+        - APP_USER_ID=${APP_USER_ID}
+        - TZ=${TIMEZONE}
+    volumes:
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+    ports:
+      - "8080:80"
+    networks:
+      backend:
+        aliases:
+          - ${APP_HOST}
+
+  php-fpm:
+    image: petcom/php-fpm
+    build:
+      context: .
+      dockerfile: ./php-fpm/Dockerfile
+      args:
+        - APP_CODE_PATH=${APP_CODE_PATH_CONTAINER}
+        - APP_GROUP=${APP_GROUP}
+        - APP_GROUP_ID=${APP_GROUP_ID}
+        - APP_USER=${APP_USER}
+        - APP_USER_ID=${APP_USER_ID}
+        - TARGET_PHP_VERSION=${PHP_VERSION}
+        - TZ=${TIMEZONE}
+    volumes:
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+    networks:
+      - backend
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_DATABASE=petcom
+      - MYSQL_USER=petcom
+      - MYSQL_PASSWORD=petcom
+      - MYSQL_ROOT_PASSWORD=root 
+    networks:
+      - backend
+  redis:
+    image: redis:latest
+    networks:
+      -backend
