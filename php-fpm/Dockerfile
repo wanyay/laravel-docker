@@ -21,25 +21,10 @@ RUN /tmp/scripts/install_php_extensions.sh
 
 RUN /tmp/scripts/install_software.sh
 
-# php-fpm pool config
-# COPY ${SERVICE_DIR}/php-fpm.d/* /usr/local/etc/php-fpm.d
-# RUN /tmp/scripts/modify_config.sh /usr/local/etc/php-fpm.d/app.conf \
-#     "__APP_USER" \
-#     "${APP_USER}" \
-#  && /tmp/scripts/modify_config.sh /usr/local/etc/php-fpm.d/app.conf \
-#     "__APP_GROUP" \
-#     "${APP_GROUP}" \
-# ;
-
 # workdir
 ARG APP_CODE_PATH="/var/www/"
 WORKDIR "$APP_CODE_PATH"
 
-# # entrypoint
-# RUN mkdir -p /bin/docker-entrypoint/ \
-#  && cp /tmp/scripts/docker-entrypoint/* /bin/docker-entrypoint/ \
-#  && chmod +x -R /bin/docker-entrypoint/ \
-# ;
 
 RUN /tmp/scripts/cleanup.sh
 

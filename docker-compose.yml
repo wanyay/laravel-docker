@@ -55,14 +55,28 @@ services:
       - backend
     volumes:
       - ~/.docker/${APP_NAME}:/var/lib/mysql
+    ports:
+      - 3306:3306
 
   redis:
     image: redis:latest
     networks:
       - backend
+  
+  echo:
+    image: petcom/echo
+    build:
+      context: .
+      dockerfile: ./laravel-echo/Dockerfile
+    networks: 
+      - backend
+    ports:
+      - 6001:6001
 
   adminer:
     image: adminer:latest
+    environment:
+      - ADMINER_DESIGN=ng9
     networks:
       - backend
     ports:
