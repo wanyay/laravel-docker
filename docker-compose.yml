@@ -63,15 +63,15 @@ services:
     networks:
       - backend
   
-  echo:
-    image: petcom/echo
-    build:
-      context: .
-      dockerfile: ./laravel-echo/Dockerfile
-    networks: 
-      - backend
-    ports:
-      - 6001:6001
+  # echo:
+  #   image: petcom/echo
+  #   build:
+  #     context: .
+  #     dockerfile: ./laravel-echo/Dockerfile
+  #   networks: 
+  #     - backend
+  #   ports:
+  #     - 6001:6001
 
   adminer:
     image: adminer:latest

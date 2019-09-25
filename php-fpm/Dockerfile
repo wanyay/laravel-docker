@@ -28,4 +28,6 @@ WORKDIR "$APP_CODE_PATH"
 
 RUN /tmp/scripts/cleanup.sh
 
+COPY ./php-fpm/php.ini /usr/local/etc/php/
+
 EXPOSE 9000
