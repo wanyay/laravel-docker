@@ -6,7 +6,7 @@ networks:
 
 services:
   nginx:
-    image: petcom/nginx
+    image: laravel/nginx
     build:
       context: .
       dockerfile: ./nginx/Dockerfile
@@ -27,7 +27,7 @@ services:
           - ${APP_HOST}
 
   php-fpm:
-    image: petcom/php-fpm
+    image: laravel/php
     build:
       context: .
       dockerfile: ./php-fpm/Dockerfile
@@ -63,15 +63,15 @@ services:
     networks:
       - backend
   
-  # echo:
-  #   image: petcom/echo
-  #   build:
-  #     context: .
-  #     dockerfile: ./laravel-echo/Dockerfile
-  #   networks: 
-  #     - backend
-  #   ports:
-  #     - 6001:6001
+  echo:
+    image: laravel/echo
+    build:
+      context: .
+      dockerfile: ./laravel-echo/Dockerfile
+    networks: 
+      - backend
+    ports:
+      - 6001:6001
 
   adminer:
     image: adminer:latest
