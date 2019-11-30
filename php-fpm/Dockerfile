@@ -21,6 +21,8 @@ RUN /tmp/scripts/install_php_extensions.sh
 
 RUN /tmp/scripts/install_software.sh
 
+RUN apt-get install -yqq ffmpeg
+
 # workdir
 ARG APP_CODE_PATH="/var/www/"
 WORKDIR "$APP_CODE_PATH"
