@@ -17,11 +17,13 @@ ARG APP_GROUP_ID=1000
 
 RUN /tmp/scripts/create_user.sh ${APP_USER} ${APP_GROUP} ${APP_USER_ID} ${APP_GROUP_ID}
 
-RUN /tmp/scripts/install_php_extensions.sh
-
 RUN /tmp/scripts/install_software.sh
 
-RUN apt-get install -yqq ffmpeg
+RUN /tmp/scripts/install_php_extensions.sh
+
+RUN apt-get update
+
+RUN apt-get install -y ffmpeg
 
 # workdir
 ARG APP_CODE_PATH="/var/www/"
