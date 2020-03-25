@@ -54,7 +54,7 @@ services:
     networks:
       - backend
     volumes:
-      - ~/.docker/${APP_NAME}:/var/lib/mysql
+      - ~/.docker/mysql:/var/lib/mysql
     ports:
       - 3306:3306
 
@@ -74,7 +74,10 @@ services:
       - 6001:6001
 
   adminer:
-    image: adminer:latest
+    image: laravel/adminer
+    build:
+      context: .
+      dockerfile: ./adminer/Dockerfile
     environment:
       - ADMINER_DESIGN=ng9
     networks:
