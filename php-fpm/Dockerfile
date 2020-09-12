@@ -1,4 +1,4 @@
-ARG TARGET_PHP_VERSION=7.2
+ARG TARGET_PHP_VERSION=${PHP_VERSION}
 FROM php:${TARGET_PHP_VERSION}-fpm-stretch
 
 COPY ./shared/ /tmp/scripts/
